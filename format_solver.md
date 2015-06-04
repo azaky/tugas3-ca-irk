@@ -11,7 +11,7 @@ Kamus berisi kata-kata, di mana tiap kata-kata pada baris yang berbeda. Masukan 
 - Semua kata dijamin hanya terdiri atas alfabet kecil (a..z).
 - Tidak ada dua kata yang sama yang muncul pada masukan.
 
-Kamus dapat dilihat di [sini](sini). Note: kamus dapat sewaktu-waktu diubah. Jadi, pastikan program dapat memuat ulang kamus.
+Kamus dapat dilihat di [sini](sini). Note: kamus dapat sewaktu-waktu diubah. Jadi, pastikan program dapat memuat ulang kamus. Secara *default*, nama berkas yang digunakan adalah `kamus.txt`.
 
 ### Format Masukan
 

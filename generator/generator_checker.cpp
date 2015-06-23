@@ -117,6 +117,126 @@ struct CrosswordWord {
 };
 
 /**
+ * Mencari batasan pada suatu crossword grid.
+ */
+void getCrosswordGridBounds(map<Coordinate, char> &crosswordGrid,
+		Coordinate* topLeft, Coordinate* bottomRight) {
+	bool firstCharacter = true;
+
+	for (map<Coordinate, char>::iterator positionIterator = crosswordGrid.begin();
+			positionIterator != crosswordGrid.end(); ++positionIterator) {
+		Coordinate position = positionIterator->first;
+		// Memperbarui batas crossword: topLeft dan bottomRight
+		if (firstCharacter) {
+			firstCharacter = false;
+			*topLeft = *bottomRight = position;
+		} else {
+			if (position.row < topLeft->row) {
+				topLeft->row = position.row;
+			}
+			if (position.col < topLeft->col) {
+				topLeft->col = position.col;
+			}
+			if (position.row > bottomRight->row) {
+				bottomRight->row = position.row;
+			}
+			if (position.col > bottomRight->col) {
+				bottomRight->col = position.col;
+			}
+		}
+	}
+}
+
+/**
+ * Mencetak crossword dengan format tertentu.
+ */
+void printCrossword(map<Coordinate, char> &crosswordGrid) {
+	int row, col;
+
+	// Mencari batasan grid
+	Coordinate topLeft, bottomRight;
+	getCrosswordGridBounds(crosswordGrid, &topLeft, &bottomRight);
+
+	// Formatnya adalah sebagai berikut:
+	// Atas			:  --- ---
+	// Kosong		: |   |   |
+	// Huruf		: | X | Y |
+	// Kosong		: |   |   |
+	// Alas/Atas	:  --- ---
+	for (row = topLeft.row; row <= bottomRight.row; ++row) {
+		// Atas
+		if (row == topLeft.row) {
+			for (col = topLeft.col; col <= bottomRight.col; ++col) {
+				if (EXIST(Coordinate(row, col), crosswordGrid)) {
+					printf(" ---");
+				} else {
+					printf("    ");
+				}
+			}
+			printf(" \n");
+		}
+
+		// Kosong
+		for (col = topLeft.col; col <= bottomRight.col; ++col) {
+			if (EXIST(Coordinate(row, col), crosswordGrid) ||
+					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
+				printf("|   ");
+			} else {
+				printf("    ");
+			}
+		}
+		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
+			printf("|\n");
+		} else {
+			printf(" \n");
+		}
+
+		// Huruf
+		for (col = topLeft.col; col <= bottomRight.col; ++col) {
+			if (EXIST(Coordinate(row, col), crosswordGrid)) {
+				printf("| %c ", crosswordGrid[Coordinate(row, col)]);
+			} else if (EXIST(Coordinate(row, col - 1), crosswordGrid)) {
+				printf("|   ");
+			} else {
+				printf("    ");
+			}
+		}
+		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
+			printf("|\n");
+		} else {
+			printf(" \n");
+		}
+
+		// Kosong
+		for (col = topLeft.col; col <= bottomRight.col; ++col) {
+			if (EXIST(Coordinate(row, col), crosswordGrid) ||
+					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
+				printf("|   ");
+			} else {
+				printf("    ");
+			}
+		}
+		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
+			printf("|\n");
+		} else {
+			printf(" \n");
+		}
+
+		// Alas/Atas
+		for (col = topLeft.col; col <= bottomRight.col; ++col) {
+			if (EXIST(Coordinate(row, col), crosswordGrid) ||
+					EXIST(Coordinate(row + 1, col), crosswordGrid)) {
+				printf(" ---");
+			} else {
+				printf("    ");
+			}
+		}
+		printf(" \n");
+	}
+	printf("\n");
+}
+
+/**
  * Mengubah karakter ASCII menjadi uppercase.
  */
 char toUppercase(char c) {
@@ -167,7 +287,7 @@ int main(int argc, char const *argv[])
 	FILE* fout = fopen(argv[2], "r");
 	if (fout == NULL) {
 		fclose(fin);
-		TERMINATE("Berkas keluaran \"%s\" tidak ditemukan!\n", argv[1]);
+		TERMINATE("Berkas keluaran \"%s\" tidak ditemukan!\n", argv[2]);
 	}
 
 	// Membaca seluruh kata pada berkas masukan dan memasukkannya ke inputWords
@@ -229,8 +349,6 @@ int main(int argc, char const *argv[])
 	map<Coordinate, char> crosswordGrid;
 	map<Coordinate, CrosswordWord> directionMapping[2];
 	vector<Coordinate> contradictions;
-	Coordinate topLeft, bottomRight;
-	bool firstCharacter = true;
 
 	for (vector<CrosswordWord>::iterator crosswordWord = outputWords.begin();
 			crosswordWord != outputWords.end(); ++crosswordWord) {
@@ -254,109 +372,14 @@ int main(int argc, char const *argv[])
 				crosswordGrid[position] = ch;
 			}
 
-			// Memperbarui batas crossword: topLeft dan bottomRight
-			if (firstCharacter) {
-				firstCharacter = false;
-				topLeft = bottomRight = position;
-			} else {
-				if (position.row < topLeft.row) {
-					topLeft.row = position.row;
-				}
-				if (position.col < topLeft.col) {
-					topLeft.col = position.col;
-				}
-				if (position.row > bottomRight.row) {
-					bottomRight.row = position.row;
-				}
-				if (position.col > bottomRight.col) {
-					bottomRight.col = position.col;
-				}
-			}
-
 			// Memajukan koordinat position sesuai dengan arah kata
 			position.advance(crosswordWord->direction);
 		}
 	}
 
 	// Cetak grid
-	// Formatnya adalah sebagai berikut:
-	// Atas			:  --- ---
-	// Kosong		: |   |   |
-	// Huruf		: | X | Y |
-	// Kosong		: |   |   |
-	// Alas/Atas	:  --- ---
 	printf("Teka-teki silang yang terbentuk:\n\n");
-	for (row = topLeft.row; row <= bottomRight.row; ++row) {
-		// Atas
-		if (row == topLeft.row) {
-			for (col = topLeft.col; col <= bottomRight.col; ++col) {
-				if (EXIST(Coordinate(row, col), crosswordGrid)) {
-					printf(" ---");
-				} else {
-					printf("    ");
-				}
-			}
-			printf(" \n");
-		}
-
-		// Kosong
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid) ||
-					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
-				printf("|   ");
-			} else {
-				printf("    ");
-			}
-		}
-		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
-			printf("|\n");
-		} else {
-			printf(" \n");
-		}
-
-		// Huruf
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid)) {
-				printf("| %c ", toUppercase(crosswordGrid[Coordinate(row, col)]));
-			} else if (EXIST(Coordinate(row, col - 1), crosswordGrid)) {
-				printf("|   ");
-			} else {
-				printf("    ");
-			}
-		}
-		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
-			printf("|\n");
-		} else {
-			printf(" \n");
-		}
-
-		// Kosong
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid) ||
-					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
-				printf("|   ");
-			} else {
-				printf("    ");
-			}
-		}
-		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
-			printf("|\n");
-		} else {
-			printf(" \n");
-		}
-
-		// Alas/Atas
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid) ||
-					EXIST(Coordinate(row + 1, col), crosswordGrid)) {
-				printf(" ---");
-			} else {
-				printf("    ");
-			}
-		}
-		printf(" \n");
-	}
-	printf("\n");
+	printCrossword(crosswordGrid);
 
 	// Jika ada kontradiksi, keluarkan daftarnya
 	if (!contradictions.empty()) {
@@ -462,6 +485,8 @@ int main(int argc, char const *argv[])
 	printf("2. Komponen terhubung yang terbentuk : %d\n", numComponent);
 
 	// Keluarkan ukuran teka-teki silang
+	Coordinate topLeft, bottomRight;
+	getCrosswordGridBounds(crosswordGrid, &topLeft, &bottomRight);
 	printf("3. Ukuran teka-teki silang           : %d baris x %d kolom = %d kotak\n",
 		bottomRight.row - topLeft.row + 1, bottomRight.col - topLeft.col + 1,
 		(bottomRight.row - topLeft.row + 1) * (bottomRight.col - topLeft.col + 1));

@@ -6,8 +6,12 @@
 #include <map>
 using namespace std;
 
+// Macro untuk menghentikan program saat ada error
 #define TERMINATE(...)	fprintf(stderr, "ERROR: "); fprintf(stderr, __VA_ARGS__); exit(1)
+// Macro untuk menentukan apakah suatu elemen ada di dalam suatu container atau tidak
 #define EXIST(a,s) 		((s).find(a) != (s).end())
+// Konstanta besar buffer string
+#define MAX_BUFFER		100
 
 /**
  * Tipe data yang merepresentasikan arah kata. Ada dua, yaitu mendatar (ACCROSS) dan menurun (DOWN).
@@ -101,7 +105,7 @@ struct CrosswordWord {
 };
 
 /**
- * Fungsi yang mengubah karakter ASCII menjadi uppercase
+ * Mengubah karakter ASCII menjadi uppercase.
  */
 char toUppercase(char c) {
 	if ('a' <= c && c <= 'z') {
@@ -111,18 +115,22 @@ char toUppercase(char c) {
 	}
 }
 
+/**
+ * Mengubah string menjadi uppercase.
+ */
 void toUppercaseWord(char* c) {
 	for (; *c != 0; ++c) {
 		*c = toUppercase(*c);
 	}
 }
 
-char buffer[100], bufferDirection[100];
+char buffer[MAX_BUFFER], bufferDirection[MAX_BUFFER];
 
 int main(int argc, char const *argv[])
 {
 	if (argc != 3) {
-		TERMINATE("%s\n%s\n", "Cara kompilasi: g++ generator_checker.cpp -o generator_checker",
+		TERMINATE("%s\n%s\n%s\n", "Argumen tidak sesuai",
+				"Cara kompilasi: g++ generator_checker.cpp -o generator_checker",
 				"Cara pemakaian: ./generator_checker <file_input> <file_output>");
 	}
 
@@ -133,7 +141,8 @@ int main(int argc, char const *argv[])
 	}
 
 	FILE* fout = fopen(argv[2], "r");
-	if (fin == NULL) {
+	if (fout == NULL) {
+		fclose(fin);
 		TERMINATE("Berkas keluaran \"%s\" tidak ditemukan!\n", argv[1]);
 	}
 
@@ -342,7 +351,8 @@ int main(int argc, char const *argv[])
 	printf("Teka-teki silang di atas valid!\n\n");
 
 	// Keluarkan banyak kata yang berhasil dipakai
-	printf("1. Kata yang terpakai                : %d dari %d\n", (int)outputWords.size(), (int)inputWords.size());
+	printf("1. Kata yang terpakai                : %d dari %d\n",
+			(int)outputWords.size(), (int)inputWords.size());
 
 	// Keluarkan "keterhubungan" dalam bentuk banyak komponen graf yang ada
 	int numComponent = 0;

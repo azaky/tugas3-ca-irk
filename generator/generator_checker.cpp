@@ -229,7 +229,7 @@ int main(int argc, char const *argv[])
 	}
 
 	// Cetak grid
-	printf("Crossword yang terbentuk:\n\n");
+	printf("Teka-teki silang yang terbentuk:\n\n");
 	for (row = topLeft.row; row <= bottomRight.row; ++row) {
 		// Atas
 		if (row == topLeft.row) {
@@ -339,7 +339,56 @@ int main(int argc, char const *argv[])
 	}
 
 	// Setelah semua valid, keluarkan metrik penilaian
+	printf("Teka-teki silang di atas valid!\n\n");
 
+	// Keluarkan banyak kata yang berhasil dipakai
+	printf("1. Kata yang terpakai                : %d dari %d\n", (int)outputWords.size(), (int)inputWords.size());
+
+	// Keluarkan "keterhubungan" dalam bentuk banyak komponen graf yang ada
+	int numComponent = 0;
+	map<Coordinate, int> visited;
+	for (map<Coordinate, char>::iterator startIterator = crosswordGrid.begin();
+			startIterator != crosswordGrid.end(); ++startIterator) {
+		if (visited[startIterator->first]) {
+			continue;
+		}
+		vector<Coordinate> stack;
+		stack.push_back(startIterator->first);
+		visited[stack.back()] = 1;
+		while (!stack.empty()) {
+			Coordinate top = stack.back(), temp;
+			stack.pop_back();
+
+			temp = top - Coordinate::STEP[0];
+			if (!visited[temp] && EXIST(temp, crosswordGrid)) {
+				stack.push_back(temp);
+				visited[temp] = 1;
+			}
+			temp = top + Coordinate::STEP[0];
+			if (!visited[temp] && EXIST(temp, crosswordGrid)) {
+				stack.push_back(temp);
+				visited[temp] = 1;
+			}
+			temp = top - Coordinate::STEP[1];
+			if (!visited[temp] && EXIST(temp, crosswordGrid)) {
+				stack.push_back(temp);
+				visited[temp] = 1;
+			}
+			temp = top + Coordinate::STEP[1];
+			if (!visited[temp] && EXIST(temp, crosswordGrid)) {
+				stack.push_back(temp);
+				visited[temp] = 1;
+			}
+		}
+		numComponent++;
+	}
+	printf("2. Komponen terhubung yang terbentuk : %d\n", numComponent);
+
+	// Keluarkan ukuran teka-teki silang
+	printf("3. Ukuran teka-teki silang           : %d baris x %d kolom = %d kotak\n",
+		bottomRight.row - topLeft.row + 1, bottomRight.col - topLeft.col + 1,
+		(bottomRight.row - topLeft.row + 1) * (bottomRight.col - topLeft.col + 1));
+	printf("   Banyak kotak yang terpakai        : %d kotak\n", (int)crosswordGrid.size());
 
 	return 0;
 }

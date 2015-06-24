@@ -82,7 +82,7 @@ Hanya ada dua kata di sini, **dan ini diperbolehkan**. Namun, terdapat ketidakko
 
 ### Checker
 
-Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan). Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/generator/generator_checker.cpp).
+Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan) dengan nama `generator_checker.cpp`. Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/generator/generator_checker.cpp).
 
 **Cara Kompilasi**
 
@@ -96,4 +96,4 @@ Program tersebut dapat dijalankan sebagai berikut.
 
 	./generator_checker <file_input> <file_output>
 
-Program di atas beserta dengan contoh masukan dan keluaran disediakan di folder [solver](https://github.com/azaky/tugas3-ca-irk/blob/master/generator) pada repository ini.
+Program di atas beserta dengan contoh masukan dan keluaran disediakan di folder [generator](https://github.com/azaky/tugas3-ca-irk/blob/master/generator) pada repository ini.

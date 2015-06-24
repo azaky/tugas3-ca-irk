@@ -70,7 +70,7 @@ Dengan asumsi keempat kata tersebut ada pada kamus.
 
 ### Checker
 
-Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan). Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/solver/solver_checker.cpp).
+Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan) dengan nama `solver_checker.cpp`. Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/solver/solver_checker.cpp).
 
 **Cara Kompilasi**
 

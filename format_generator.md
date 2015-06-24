@@ -1,10 +1,8 @@
-# Tugas III Ca-IRK: Format File
-
-## Crossword Generator
+# Tugas III Ca-IRK: Format File Crossword Generator
 
 Program harus bisa menerima masukan berupa daftar kata-kata yang ada, dan mengeluarkan penempatan kata-kata tersebut dalam suatu teka-teki silang.
 
-### Format Masukan
+## Format Masukan
 
 Masukan berisi kata-kata, di mana tiap kata-kata pada baris yang berbeda. Masukan diakhiri oleh EOF (End-Of-File). Dijamin:
 
@@ -18,7 +16,7 @@ Masukan berisi kata-kata, di mana tiap kata-kata pada baris yang berbeda. Masuka
 	rekayasa
 	komputasi
 
-### Format Keluaran
+## Format Keluaran
 
 Keluaran akan menjelaskan penempatan kata-kata pada masukan dalam teka-teki silang. Tiap kata dijelaskan sebagai berikut:
 
@@ -80,3 +78,22 @@ Terdapat kata-kata lain yang muncul di sana, contohnya adalah `lirk` yang muncul
 
 Hanya ada dua kata di sini, **dan ini diperbolehkan**. Namun, terdapat ketidakkonsistenan pada huruf di baris 1 kolom 1, yaitu antara `l` dan `i`. Jadi, **ini juga contoh keluaran yang salah**.
 
+## Tools
+
+### Checker
+
+Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan). Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/generator/generator_checker.cpp).
+
+**Cara Kompilasi**
+
+Program tersebut dapat dikompilasi sama seperti program C++ lainnya. Jalankan perintah di bawah ini dari *command prompt* atau *terminal*
+
+	g++ generator_checker.cpp -o generator_checker
+
+**Cara Menjalankan**
+
+Program tersebut dapat dijalankan sebagai berikut.
+
+	./generator_checker <file_input> <file_output>
+
+Program di atas beserta dengan contoh masukan dan keluaran disediakan di folder [solver](https://github.com/azaky/tugas3-ca-irk/blob/master/generator) pada repository ini.

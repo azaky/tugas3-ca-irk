@@ -9,6 +9,6 @@ Jadi...apakah tugasnya? jeng jeng jeng jeng.... Tugas kalian adalah membuat... T
 - Program harus dibuat menggunakan GUI. Tampilan serta bahasa pemrograman dibebaskan sesuai selera masing - masing
 - Untuk TTS Generator, aspek terpenting adalah seberapa cepat TTS tersebut digenerate (silahkan tampilkan waktu pemrosesan), dan juga ukuran dari TTS yang dihasilkan (tentu saja semakin kecil semakin baik)
 - Untuk TTS Solver, aspek terpenting adalah seberapa cepat TTS tersebut disolve (silahkan tampilkan waktu pemrosesan)
-- Format input dapat dilihat di [format generator](https://github.com/azaky/tugas3-ca-irk/blob/master/format_generator.md) dan [format solver](https://github.com/azaky/tugas3-ca-irk/blob/master/format_solver.md).
+- Format input dapat dilihat di [format generator](https://github.com/azaky/tugas3-ca-irk/blob/master/generator/format_generator.md) dan [format solver](https://github.com/azaky/tugas3-ca-irk/blob/master/solver/format_solver.md).
 - Tugas ini dikerjakan secara perorangan!
 - Deadline pengerjaan adalah Senin / 13 Juli 2015 pkl 23.59 (Sudah diplot biar ga mengganggu liburan kalian lohh :D)

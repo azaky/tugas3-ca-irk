@@ -1,10 +1,8 @@
-# Tugas III Ca-IRK: Format File
-
-## Crossword Solver
+# Tugas III Ca-IRK: Format File Crossword Solver
 
 Program harus bisa menerima masukan berupa teka-teki silang, dan keluaran berupa teka-teki silang yang telah terisi. Kata-kata yang dibolehkan untuk dipakai dapat diperoleh dari suatu kamus.
 
-### Format Kamus
+## Format Kamus
 
 Kamus berisi kata-kata, di mana tiap kata-kata pada baris yang berbeda. Masukan diakhiri oleh EOF (End-Of-File). Dijamin:
 
@@ -13,7 +11,7 @@ Kamus berisi kata-kata, di mana tiap kata-kata pada baris yang berbeda. Masukan 
 
 Contoh kamus dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/solver/kamus.txt). Note: kamus dapat sewaktu-waktu diubah. Jadi, pastikan program dapat memuat ulang kamus. Secara *default*, nama berkas yang digunakan adalah `kamus.txt`.
 
-### Format Masukan
+## Format Masukan
 
 Masukan akan menjelaskan kata-kata yang ada pada teka-teki silang. Tiap kata dijelaskan sebagai berikut:
 
@@ -43,7 +41,7 @@ Masukan di atas dapat digambarkan oleh teka-teki silang di bawah ini.
        .
        i
 
-### Format Keluaran
+## Format Keluaran
 
 Format keluaran mirip dengan format masukan. Format keluaran berisi tiap kata yang dapat mengisi teka-teki silang yang diberikan. Tiap kata dijelaskan sebagai berikut:
 
@@ -67,3 +65,23 @@ Aspek yang dinilai:
 	rekayasa 7 1 mendatar
 
 Dengan asumsi keempat kata tersebut ada pada kamus.
+
+## Tools
+
+### Checker
+
+Terdapat program C++ sederhana yang dapat dipakai untuk memeriksa hasil file keluaran (dan masukan). Program tersebut dapat dilihat di [sini](https://github.com/azaky/tugas3-ca-irk/blob/master/solver/solver_checker.cpp).
+
+**Cara Kompilasi**
+
+Program tersebut dapat dikompilasi sama seperti program C++ lainnya. Jalankan perintah di bawah ini dari *command prompt* atau *terminal*
+
+	g++ solver_checker.cpp -o solver_checker
+
+**Cara Menjalankan**
+
+Program tersebut dapat dijalankan sebagai berikut.
+
+	./solver_checker <file_input> <file_output> [<file_kamus>]
+
+`<file_kamus>` tidak harus diikutsertakan. Jika tidak ada, maka program akan mencari file `kamus.txt` pada direktori yang sama.

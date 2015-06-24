@@ -85,3 +85,5 @@ Program tersebut dapat dijalankan sebagai berikut.
 	./solver_checker <file_input> <file_output> [<file_kamus>]
 
 `<file_kamus>` tidak harus diikutsertakan. Jika tidak ada, maka program akan mencari file `kamus.txt` pada direktori yang sama.
+
+Program di atas beserta dengan contoh kamus, masukan, dan keluaran disediakan di folder [solver](https://github.com/azaky/tugas3-ca-irk/blob/master/solver) pada repository ini.

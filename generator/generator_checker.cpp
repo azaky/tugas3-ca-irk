@@ -159,9 +159,7 @@ void printCrossword(map<Coordinate, char> &crosswordGrid) {
 
 	// Formatnya adalah sebagai berikut:
 	// Atas			:  --- ---
-	// Kosong		: |   |   |
 	// Huruf		: | X | Y |
-	// Kosong		: |   |   |
 	// Alas/Atas	:  --- ---
 	for (row = topLeft.row; row <= bottomRight.row; ++row) {
 		// Atas
@@ -176,41 +174,11 @@ void printCrossword(map<Coordinate, char> &crosswordGrid) {
 			printf(" \n");
 		}
 
-		// Kosong
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid) ||
-					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
-				printf("|   ");
-			} else {
-				printf("    ");
-			}
-		}
-		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
-			printf("|\n");
-		} else {
-			printf(" \n");
-		}
-
 		// Huruf
 		for (col = topLeft.col; col <= bottomRight.col; ++col) {
 			if (EXIST(Coordinate(row, col), crosswordGrid)) {
 				printf("| %c ", crosswordGrid[Coordinate(row, col)]);
 			} else if (EXIST(Coordinate(row, col - 1), crosswordGrid)) {
-				printf("|   ");
-			} else {
-				printf("    ");
-			}
-		}
-		if (EXIST(Coordinate(row, bottomRight.col), crosswordGrid)) {
-			printf("|\n");
-		} else {
-			printf(" \n");
-		}
-
-		// Kosong
-		for (col = topLeft.col; col <= bottomRight.col; ++col) {
-			if (EXIST(Coordinate(row, col), crosswordGrid) ||
-					EXIST(Coordinate(row, col - 1), crosswordGrid)) {
 				printf("|   ");
 			} else {
 				printf("    ");
